@@ -2,7 +2,30 @@
 <html class="fixed">
 
 <head>
-	<?php include "head.php"; ?>
+	<?php 
+	include "connect.php";
+	include "head.php";
+	session_start();	
+	if(isset($_POST['login'])){
+		$mobile = $_POST['mobile'];
+		$pin = $_POST['pin'];
+		$check = mysqli_query($conn, "SELECT * FROM `users` WHERE `pid` = '$mobile' AND `points` IS NULL");
+		$player_details = mysqli_fetch_assoc($check);
+		if(mysqli_num_rows($check) > 0){
+			if($pin == 'BVRMOL'){
+				$_SESSION['pid'] = $mobile;
+				$_SESSION['player_name'] = $player_details['player_name'];
+				$_SESSION['flat'] = $player_details['flat'];
+				header('location:dashboard.php');
+			}
+			else echo "<script>alert('Wrong Pin');</script>";
+
+		}else{
+			echo "<script>alert('Invalid Credentials');</script>";
+		}
+	}
+	
+	?>
 </head>
 
 <body>
@@ -12,11 +35,10 @@
 		<div class="center-sign">
 			<div class="panel card-sign">
 				<div class="card-body">
-					<form action="dashboard4.php" method='post'>
+					<form action="#" method='post'>
 						<div class="current-user text-center">
 							<img src="img/full_logo.jpg" alt="BO HOUSIE" class="rounded-circle user-image" />
 							<h2 class="user-name text-dark m-0" style='font-size:24px;'>SPELL BEE LOGIN</h2>
-							<!-- <p class="user-email m-0"><span class="alternative-font text-6">Beta Version (Under Testing)</span></p> -->
 						</div>
 						<div class="form-group mb-3">
 							<div class="input-group">
@@ -30,7 +52,6 @@
 						</div>
 						<div class="form-group mb-3">
 							<div class="input-group">
-								<!-- <input id="pin" name="pin" type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" class="form-control form-control-lg" placeholder="4 Digit PIN" MAXLENGTH='4' value='' REQUIRED/> -->
 								<input id="pin" name="pin" type="password" class="form-control form-control-lg" placeholder="SECRET PIN" MAXLENGTH='6' value='' autocomplete="off" REQUIRED />
 								<span class="input-group-append">
 									<span class="input-group-text">
@@ -43,11 +64,6 @@
 
 						<div class="row">
 							<div class="col-6">
-								<p class="mt-1 mb-3">
-									<!--<a href="signup.php">Not Registered? SIGNUP FOR FREE</a>-->
-								</p>
-							</div>
-							<div class="col-6">
 								<button type="submit" name="login" class="btn btn-primary pull-right">LOGIN TO PLAY</button>
 							</div>
 						</div>
@@ -58,7 +74,6 @@
 		</div>
 	</section>
 
-	<!-- end: page -->
 
 	<!-- Vendor -->
 	<script src="vendor/jquery/jquery.js"></script>
@@ -82,31 +97,6 @@
 	</script>
 
 	<!-- GetButton.io widget -->
-	<script type="text/javascript">
-		(function() {
-			var options = {
-				whatsapp: "+919293940004", // WhatsApp number
-				call_to_action: "WhatsApp for Help", // Call to action
-				position: "left", // Position may be 'right' or 'left'
-			};
-			var proto = document.location.protocol,
-				host = "getbutton.io",
-				url = proto + "//static." + host;
-			var s = document.createElement('script');
-			s.type = 'text/javascript';
-			s.async = true;
-			s.src = url + '/widget-send-button/js/init.js';
-			s.onload = function() {
-				WhWidgetSendButton.init(host, proto, options);
-			};
-			var x = document.getElementsByTagName('script')[0];
-			x.parentNode.insertBefore(s, x);
-		})();
-	</script>
-
-
-
-	<!-- /GetButton.io widget -->
 </body>
 
 </html>

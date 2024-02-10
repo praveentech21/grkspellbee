@@ -1,16 +1,12 @@
-<?php include 'access_check.php'; ?>
-
+// Code for the dashboard of the game
 <?php
 
 $right = -1;
+session_start();
 
 include 'connect.php';
 
 $sid = $_SESSION['pid'];
-
-$game_points = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `points` from users where pid='$sid'"))['points'];
-if($game_points >= 2700)
-	header('Location: dashboard3.php');
 
 $nqres = mysqli_query($conn, "SELECT count(*) from responses where sid='$sid';");
 
@@ -18,9 +14,8 @@ $qres = mysqli_fetch_array($nqres);
 
 $q = $qres[0] + 1;
 
-$statuscheck = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `status` from users where pid='$sid';"))['status'];
-if ($statuscheck == 0)
-	header('Location: index.php?stop');
+// if ($statuscheck == 0)
+// 	header('Location: index.php?stop');
 
 if (isset($_GET['qid'])) {
 	$qid = (int) $_GET['qid'];
@@ -124,9 +119,6 @@ $q = $qres[0] + 1;
 
 		if ($right == 1) {
 	?>
-
-
-
 		<script>
 			var audio = new Audio("sounds/ipl.mp3");
 
@@ -137,15 +129,11 @@ $q = $qres[0] + 1;
 			audio.play();
 		</script>
 
-
-
 	<?php
 		}
 
 		if ($right == 0) {
 			?>
-
-
 
 		<script>
 			var audio = new Audio("sounds/aipaye.mp3");
@@ -321,7 +309,7 @@ $q = $qres[0] + 1;
 										$be = 10;
 									}
 
-									if ($q <= 15) {
+									if ($q <= 10) {
 										echo "<h4 align='center' STYLE='COLOR:RED;'><B>YOUR QUESTION NO - $q</B></h4>";
 
 										$ques = mysqli_query($conn, "SELECT * FROM words where qid not in (select qid from responses where sid='$sid') and level between $bl and $be ORDER BY RAND() LIMIT 1;");

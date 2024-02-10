@@ -22,7 +22,7 @@
 				                        </a>                        
 				                    </li>
 				                    <li>
-				                        <a class="nav-link" href="index.php?logout">
+				                        <a class="nav-link" href="logout.php">
 				                            <i class="fas fa-power-off" aria-hidden="true"></i>
 				                            <span>Log Out</span>
 				                        </a>                        

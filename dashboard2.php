@@ -1,4 +1,3 @@
-<?php include "access_check.php"; ?>
 <?php 
    include "connect.php";
    $sid=$_SESSION['pid'];
@@ -56,15 +55,9 @@
 							<section class="card mt-4">
 								<div class="card-body">
 	<?php			
-	 
-	  $l='E';
-	  if(isset($_GET['l']))
-	  {
-   	   $l=$_GET['l'];
-   	  } 
    	  
 	  echo "<h4 align='center' STYLE='COLOR:RED;'><B>YOUR QUESTION NO - $q</B></h4>";
-   	  $ques=mysqli_query($conn, "SELECT * FROM words where qid not in (select qid from responses where sid='$sid') and level='$l' ORDER BY RAND() LIMIT 1;"); 		
+   	  $ques=mysqli_query($conn, "SELECT * FROM words where qid not in (select qid from responses where sid='$sid') ORDER BY RAND() LIMIT 1;"); 		
 
 	  $qrow=mysqli_fetch_array($ques);
       $qid=$qrow[0];	  
@@ -72,15 +65,12 @@
   	  $question = $qrow['meaning'];	  
   	  $lvl=$qrow[3];
 
-      if($lvl == 'E') { $level="Easy";}	  
-      else if($lvl == 'M') { $level="Moderate";}	  
-      else if($lvl == 'C') { $level="Difficult";}	  
+	  
 	  		  
       echo "<div align='center'><h4><b>Word Meaning: </b>".$question."</h4></div>";
-	  echo "<div align='center'><h4><b>Difficulty Level: </b>".$level."</h4></div><div align='center'>";
+	  echo "<div align='center'><h4><b></b>"."</h4></div><div align='center'>";
 	  
 		 echo "<button class='mb-1 mt-1 mr-1 btn btn-warning' onclick='spell_sound($qid);'><span style='color:#000000;'><i class='fas fa-volume-up'></i> SPELL MACHINE WORD <i class='fas fa-play'></i></span></button>";
-		 echo "<button class='mb-1 mt-1 mr-1 btn btn-primary' onclick='spell_human($qid);'><span style='color:#000000;'><i class='fas fa-volume-up'></i> SPELL HUMAN WORD <i class='fas fa-play'></i></span></button>";
 		 
 		 echo "<div id='spelling'>WRITE THE CORRECT SPELLING IN THE TEXT BOX<div class='col-8'><input type='hidden' name='qid' id='qid' value='$qid'><input type='text' class='form-control' name='answer'  id='answer'  value='' placeholder='Your Spelling Here' style='text-transform:uppercase;' autocomplete='off' REQUIRED></div><div class='col-4'><button type='submit' class='mb-1 mt-1 mr-1 btn btn-success' onclick='check_spelling();'>Submit Spelling</button></div></div>";
     	 		 
@@ -246,6 +236,7 @@ function check_spelling()
 
 function spell_sound(id)
 {
+	console.log(id);
 	var audio = new Audio("sounds/machine/" + id + ".mp3");
 	audio.play();
 }
@@ -255,6 +246,7 @@ function spell_sound(id)
 
 function spell_human(id)
 {
+	console.log(id);
 	var audio = new Audio("sounds/human/" + id + ".mp3");
 	audio.play();
 }

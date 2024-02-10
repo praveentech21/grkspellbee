@@ -30,6 +30,7 @@
 								<i class="fas fa-tasks"></i>
 								<span class="badge">
 								<?php
+								session_start();
                                 ?>
 								
 								</span>
@@ -107,7 +108,7 @@
 						<a href="#" data-toggle="dropdown">
 							<div class="profile-info">
 								<span class="name"><?php echo $_SESSION['player_name']; ?></span>
-								<span class="role"><?php echo $_SESSION['place']; ?></span>
+								<span class="role"><?php echo $_SESSION['flat']; ?></span>
 							</div>
 			
 							<i class="fa custom-caret"></i>
