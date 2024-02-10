@@ -53,31 +53,6 @@
 
                   <li class="menu-item ">
 
-                    <a href="replay.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-dock-top"></i>
-
-                      <div data-i18n="Analytics">Replay</div>
-
-                    </a>
-
-                  </li>
-
-
-                  <li class="menu-item ">
-
-                    <a href="editstudent.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-copy"></i>
-
-                      <div data-i18n="Analytics">EDIT USER</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
                     <a href="logout.php" class="menu-link">
 
                       <i class="menu-icon tf-icons bx bx-cube-alt"></i>

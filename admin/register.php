@@ -15,7 +15,7 @@ if (isset($_POST['addnewstudent'])) {
     echo "<script>alert('Student Already Registered');</script>";
   } else {
 
-    if(mysqli_query($conn, "INSERT INTO `users`(`pid`, `player_name`, `father_name`, `flat`, `status`, `points`) VALUES ('$mobile','$sname','$pname','$flat',1,0)"))echo "<script>alert('New Student Added Successfully');</script>";
+    if(mysqli_query($conn, "INSERT INTO `users`(`pid`, `player_name`, `father_name`, `flat`, `status`) VALUES ('$mobile','$sname','$pname','$flat',1)"))echo "<script>alert('New Student Added Successfully');</script>";
     else echo "<script>alert('Failed to add new student');</script>";
   }
 }

@@ -16,7 +16,7 @@
 						<div class="current-user text-center">
 							<img src="img/full_logo.jpg" alt="BO HOUSIE" class="rounded-circle user-image" />
 							<h2 class="user-name text-dark m-0" style='font-size:24px;'>SPELL BEE LOGIN</h2>
-							<p class="user-email m-0"><span class="alternative-font text-6">Beta Version (Under Testing)</span></p>
+							<!-- <p class="user-email m-0"><span class="alternative-font text-6">Beta Version (Under Testing)</span></p> -->
 						</div>
 						<div class="form-group mb-3">
 							<div class="input-group">
@@ -39,43 +39,7 @@
 								</span>
 							</div>
 						</div>
-						<div class="help-block text-center">
-							<?php
-
-							if (isset($_REQUEST['logout'])) {
-								session_start();
-								$pid = $_SESSION['pid'];
-								include "connect.php";
-								mysqli_query($conn, "update users set status=0 where pid='$pid'");
-
-								$_SESSION = array();
-								session_destroy();
-								if (!isset($_SESSION['pid'])) {
-									echo "<center><span style='color:red;'>You are now logged out!</span></center>";
-								}
-							} else if (isset($_REQUEST['pwderror'])) {
-								session_start();
-								$_SESSION = array();
-								session_destroy();
-								echo "<center><span style='color:red;' id='foo'><b>Invalid Secret Pin / Mobile!</b></span></center>";
-							} else if (isset($_REQUEST['stop'])) {
-								session_start();
-								$_SESSION = array();
-								session_destroy();
-								echo "<center><span style='color:red;' id='foo'><b>You are Misusing the Game</b></span></center>";
-							} else if (isset($_REQUEST['wpin'])) {
-								session_start();
-								$_SESSION = array();
-								session_destroy();
-								echo "<center><span style='color:red;' id='foo'><b>Invalid Secret Pin</b></span></center>";
-							} else {
-								//echo "<span style='font-size:14px;'>Default PIN: <b style='color:red;'>0000</b></span>";
-							}
-
-							?>
-
-
-						</div>
+						
 
 						<div class="row">
 							<div class="col-6">
@@ -84,10 +48,9 @@
 								</p>
 							</div>
 							<div class="col-6">
-								<button type="submit" class="btn btn-primary pull-right">LOGIN TO PLAY</button>
+								<button type="submit" name="login" class="btn btn-primary pull-right">LOGIN TO PLAY</button>
 							</div>
 						</div>
-
 
 					</form>
 				</div>

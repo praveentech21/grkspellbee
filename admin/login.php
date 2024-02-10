@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     header("location: index.php");
   }else{
     echo "<script>alert('Invalid Password');</script>";
-  }  
+  }
 }
 
 ?>

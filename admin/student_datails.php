@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin'])) header("location: login.php");
 
 include 'connect.php';
 
-$registrations = mysqli_query($conn, "SELECT * FROM `users`");
+$notpayed = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NULL");
 
 ?>
 
@@ -15,7 +15,7 @@ $registrations = mysqli_query($conn, "SELECT * FROM `users`");
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Students SpellBee SRKR</title>
+  <title>Replay SRKR Spellbee</title>
 
   <meta name="description" content="" />
 
@@ -43,7 +43,7 @@ $registrations = mysqli_query($conn, "SELECT * FROM `users`");
   <script src="Bhavani/vendor/js/helpers.js"></script>
 
   <script src="Bhavani/js/config.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Add these links in your HTML -->
 
 </head>
 
@@ -51,60 +51,66 @@ $registrations = mysqli_query($conn, "SELECT * FROM `users`");
 
   <!-- Sidebar Starts Here Shiva -->
   <?php include 'header.php'; ?>
-  <!-- Sidebar Ends Here Shiva --> <!-- Content Starts Here Shiva-->
+  <!-- Sidebar Ends Here Shiva -->
+
+  <!-- Content Starts Here Shiva-->
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
 
       <!-- Bordered Table -->
       <div class="card">
-        <h5 class="card-header">Registered Students</h5>
+        <h5 class="card-header">Payment Conformation</h5>
         <div class="card-body">
           <div class="table-responsive text-nowrap">
             <table class="table table-bordered" id="registrationTable">
               <thead>
                 <tr>
                   <th>NAME</th>
-                  <th>REGISTRATION NO</th>
-                  <th>DEPARTMENT</th>
-                  <th>YEAR</th>
-                  <th>Status</th>
-                  <!-- <th>Discontinu</th> -->
+                  <th>Parent</th>
+                  <th>Flat Number</th>
+                  <th>Replay</th>
                 </tr>
               </thead>
-              <tbody>
-                <?php while ($row = mysqli_fetch_array($registrations)) {
-                  $tresponces = mysqli_fetch_assoc(mysqli_query($conn, "SELECT count(*) FROM `responses` WHERE `sid` = '$row[regno]'"))['count(*)'];
-                ?>
-                  <tr title="<?php echo $row['pid'] ?>">
-                    <td><strong><?php echo strtoupper($row['player_name']) ?></strong></td>
-                    <td><?php echo strtoupper($row['regno']) ?></td>
-                    <td><?php echo $row['department'] ?></td>
-                    <td><?php if ($row['place'] == '2027') echo "First Year";
-                        elseif ($row['place'] == '2026') echo "Second Year";
-                        elseif ($row['place'] == '2025') echo "Third Year";
-                        elseif ($row['place'] == '2024') echo "Fourth Year";
-                        ?></td>
-                    <td><?php if ($row['payment_status'] == '0') echo "Not Paid";
-                        elseif ($row['payment_status'] == '1' and $row['status'] == '0') echo "Payment Confirmed";
-                        elseif ($row['payment_status'] == '1' and $row['status'] == '1' and $tresponces == 0) echo "Go and Play";
-                        elseif ($row['payment_status'] == '1' and $row['status'] == '1' and $tresponces < 15) echo "Semi Played";
-                        elseif ($row['payment_status'] == '1' and $row['status'] == '1' and $tresponces == 15) echo "Game Completed";
-                        elseif ($row['payment_status'] > 1 and $row['status'] == '1' and $tresponces == '0') echo "Choose to Replay";
-                        elseif ($row['payment_status'] > 1 and $row['status'] == '1' and $tresponces < '15') echo "Semi Replay";
-                        elseif ($row['payment_status'] > 1 and $row['status'] == '1' and $tresponces == '15') echo "Replayed";
-                        else echo "Update Status";
-                        ?></td>
-                    <!-- <td><button type="button" class="btn rounded-pill btn-danger confirm-game" data-toggle="modal" data-target="#confirmationModal" data-pid="<?php echo $row['pid']; ?>">Stop Game</button></td> -->
+              <?php while ($row = mysqli_fetch_array($notpayed)) { ?>
+                <tr>
+                  <td><strong><?php echo strtoupper($row['player_name']) ?></strong></td>
+                  <td><?php echo strtoupper($row['father_name']) ?></td>
+                  <td><?php echo $row['flat'] ?></td>
+                  <td>
+                    <button type="button" class="btn rounded-pill btn-info confirm-game" data-toggle="modal" data-target="#confirmationModal" data-pid="<?php echo $row['pid']; ?>">
+                      Replay
+                    </button>
+                  </td>
+                </tr>
+                <!-- Modal Code Starts Here -->
+                <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Game</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to confirm this game?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal Code Ends Here -->
 
-                  </tr>
-                <?php } ?>
+              <?php } ?>
               </tbody>
             </table>
           </div>
         </div>
       </div>
       <!--/ Bordered Table -->
-
 
 
     </div>
@@ -115,6 +121,41 @@ $registrations = mysqli_query($conn, "SELECT * FROM `users`");
   <?php include 'footer.php'; ?>
   <!-- Footer Ends Here Shiva-->
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Add a click event listener to the buttons with the class "confirm-game"
+      $(".confirm-game").click(function() {
+        // Get the game ID from the data attribute
+        var pid = $(this).data("pid");
+
+        // Handle the "Confirm" button click
+        $("#confirmButton").click(function() {
+          // Send the AJAX request to update the game confirmation
+          $.ajax({
+          type: "POST",
+          url: "replay.php", // Replace with the URL of your PHP script
+          data: {
+            replay: pid
+          }, // Send the user ID to the server
+          success: function(response) {
+            // Handle the server response if needed
+            console.log("Replay Confirmed successfully.");
+            window.location.reload();
+          },
+          error: function() {
+            // Handle errors if the AJAX request fails
+            console.error("Error in Repayment confirmation.");
+          }
+        });
+
+          // Close the modal
+          $("#confirmationModal").modal("hide");
+        });
+      });
+    });
+  </script>
   <script>
     $(document).ready(function() {
       // Cache the table rows for better performance
@@ -144,6 +185,12 @@ $registrations = mysqli_query($conn, "SELECT * FROM `users`");
       });
     });
   </script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 
