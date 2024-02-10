@@ -53,30 +53,6 @@
 
                   <li class="menu-item ">
 
-                    <a href="payment_conformation.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-copy"></i>
-
-                      <div data-i18n="Analytics">Payment Confirmation</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
-                    <a href="game_confirmation.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-support"></i>
-
-                      <div data-i18n="Analytics">Game Confirmation</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
                     <a href="replay.php" class="menu-link">
 
                       <i class="menu-icon tf-icons bx bx-dock-top"></i>
@@ -87,41 +63,6 @@
 
                   </li>
 
-                  <li class="menu-item ">
-
-                    <a href="certificate.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-file"></i>
-
-                      <div data-i18n="Analytics">Certificate</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
-                    <a href="meritcertificate.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-file"></i>
-
-                      <div data-i18n="Analytics">Merit Certificate</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
-                    <a href="stopgame.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-box"></i>
-
-                      <div data-i18n="Analytics">Stop Game</div>
-
-                    </a>
-
-                  </li>
 
                   <li class="menu-item ">
 
@@ -130,29 +71,6 @@
                       <i class="menu-icon tf-icons bx bx-copy"></i>
 
                       <div data-i18n="Analytics">EDIT USER</div>
-
-                    </a>
-
-                  </li>
-                  <li class="menu-item ">
-
-                    <a href="status.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-
-                      <div data-i18n="Analytics">Update Status</div>
-
-                    </a>
-
-                  </li>
-
-                  <li class="menu-item ">
-
-                    <a href="addword.php" class="menu-link">
-
-                      <i class="menu-icon tf-icons bx bx-table"></i>
-
-                      <div data-i18n="Analytics">Add New Words</div>
 
                     </a>
 

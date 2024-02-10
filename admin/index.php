@@ -3,8 +3,7 @@ include 'connect.php';
 session_start();
 if (empty($_SESSION['admin'])) header("location: login.php");
 
-$leaderboard = mysqli_query($conn, "SELECT * FROM `users` where points is not null ORDER BY points DESC, lastseen DESC;");
-$deptleaderboard = mysqli_query($conn, "SELECT department FROM `users` GROUP BY department");
+$leaderboard = mysqli_query($conn, "SELECT * FROM `users` where points is not null ORDER BY points DESC");
 
 ?>
 <!DOCTYPE html>
@@ -69,8 +68,8 @@ $deptleaderboard = mysqli_query($conn, "SELECT department FROM `users` GROUP BY 
                     <th>Rank</th>
                     <th>NAME</th>
                     <th>SCORE</th>
-                    <th>Branch</th>
-                    <th>Year</th>
+                    <th>Parent Name</th>
+                    <th>Flat Number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,14 +81,8 @@ $deptleaderboard = mysqli_query($conn, "SELECT department FROM `users` GROUP BY 
                       <td> <strong><?php echo $sino ?></strong></td>
                       <td> <strong><?php echo strtoupper($student['player_name']) ?></strong></td>
                       <td><?php echo $student['points'] ?></td>
-                      <td><?php echo $student['department'] ?></td>
-                      <td>
-                        <?php if ($student['place'] == '2027') echo 'First Year';
-                        elseif ($student['place'] == '2026') echo 'Second Year';
-                        elseif ($student['place'] == '2025') echo 'Third Year';
-                        elseif ($student['place'] == '2024') echo 'Fourth Year';
-                        ?>
-                      </td>
+                      <td><?php echo $student['father_name'] ?></td>
+                      <td><?php echo $student['flat'] ?></td>
                     </tr>
                   <?php $sino++;
                   } ?>
@@ -99,38 +92,6 @@ $deptleaderboard = mysqli_query($conn, "SELECT department FROM `users` GROUP BY 
           </div>
         </div>
       </div>
-
-      <div class="col-8 col-lg-5 order-2 order-md-3 order-lg-2 mb-4">
-        <div class="card">
-          <h5 class="card-header">DEPARTMENT LEADER BOARD</h5>
-          <div class="card-body">
-            <div class="table-responsive text-nowrap">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>DEPARTMENT</th>
-                    <th>NAME</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  while ($dept = mysqli_fetch_assoc($deptleaderboard)) {
-                    $maxpoints = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `player_name` FROM `users` WHERE department = '{$dept['department']}' ORDER BY `points` DESC, `lastseen` DESC LIMIT 1;"))['player_name'];
-                  ?>
-                    <tr>
-                      <td><?php echo $dept['department'] ?></td>
-                      <td> <strong><?php echo strtoupper($maxpoints) ?></strong></td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
     </div>
   </div>
   <!-- Content Ends Here Shiva -->
