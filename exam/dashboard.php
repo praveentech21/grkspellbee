@@ -62,6 +62,7 @@ $qres = mysqli_fetch_array($nqres);
 
 $q = $qres[0] + 1;
 
+
 ?>
 
 <!doctype html>
@@ -321,7 +322,7 @@ $q = $qres[0] + 1;
 										$be = 10;
 									}
 
-									if ($q <= 15) {
+									if ($q <= 10) {
 										echo "<h4 align='center' STYLE='COLOR:RED;'><B>YOUR QUESTION NO - $q</B></h4>";
 
 										$ques = mysqli_query($conn, "SELECT * FROM words where qid not in (select qid from responses where sid='$sid') and level between $bl and $be ORDER BY RAND() LIMIT 1;");
@@ -381,6 +382,7 @@ $q = $qres[0] + 1;
 										$points = mysqli_fetch_assoc(mysqli_query($conn, "SELECT sum(marks) as points from responses where sid='$sid';"))['points'];
 
 										mysqli_query($conn, "UPDATE users set `points`=$points where pid='$sid';");
+
 
 										echo "<h3 style='color:red;' align='center'>YOUR SPELL BEE QUIZ HAS BEEN COMPLETED!</h3>";
 									}

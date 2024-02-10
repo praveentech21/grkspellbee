@@ -1,4 +1,4 @@
-<?php include "access_check.php"; ?>
+	
 <?php 
    include "connect.php";
    $sid=$_SESSION['pid'];

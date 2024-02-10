@@ -1,4 +1,3 @@
-<?php include 'access_check.php'; ?>
 
 <?php
 
@@ -17,6 +16,7 @@ $nqres = mysqli_query($conn, "SELECT count(*) from responses3 where sid='$sid';"
 $qres = mysqli_fetch_array($nqres);
 
 $q = $qres[0] + 1;
+
 
 $statuscheck = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `status` from users3 where pid='$sid';"))['status'];
 if ($statuscheck == 0) header('Location: index.php?stop');
